@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  color-scheme: light;
+  /* "brick" text/border scale — dark, warm tones for light mode */
+  --brick-950: 43 15 8;    /* #2B0F08 — headings */
+  --brick-900: 61 21 9;    /* #3D1509 */
+  --brick-800: 90 31 12;   /* #5A1F0C — body text */
+  --brick-700: 122 46 21;  /* #7A2E15 — secondary text / borders */
+}
+html.dark {
+  color-scheme: dark;
+  /* Reversed to light, warm tones so text/borders stay readable on the dark background */
+  --brick-950: 250 240 233;  /* near-cream — headings */
+  --brick-900: 244 224 210;
+  --brick-800: 232 209 196;  /* warm off-white — body text */
+  --brick-700: 255 193 163;  /* warm peach — secondary text / borders / dividers */
+}
+
+body {
+  @apply text-brick-950 font-body transition-colors duration-300;
+  background:
+    radial-gradient(1100px 560px at 50% -12%, rgba(255,122,69,0.10), transparent 60%),
+    #FBF6F1;
+}
+
+html.dark body {
+  @apply text-cream;
+  background:
+    radial-gradient(1100px 560px at 50% -12%, rgba(217,83,26,0.16), transparent 60%),
+    #120A08;
+}
+
+/* Liquid glass header: frosted, adapts to light/dark */
+.glass-header {
+  background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.62));
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(15,10,8,0.06);
+  box-shadow: 0 8px 30px rgba(58,17,7,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+html.dark .glass-header {
+  background: linear-gradient(180deg, rgba(24,14,11,0.86), rgba(24,14,11,0.66));
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.card {
+  @apply rounded-2xl border border-black/5 bg-white shadow-xl transition-colors duration-300;
+}
+html.dark .card {
+  @apply border-white/10 bg-[#1B100C] shadow-2xl shadow-black/40;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(193,68,14,0.45); border-radius: 999px; }
+
+/* ---------- Marketing / hero utilities ---------- */
+.hero-glow {
+  background:
+    radial-gradient(800px 400px at 15% 20%, rgba(255,122,69,0.18), transparent 60%),
+    radial-gradient(700px 380px at 85% 0%, rgba(217,83,26,0.14), transparent 55%);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #D9531A, #FF7A45 45%, #C1440E);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float { animation: float-y 5s ease-in-out infinite; }
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(217,83,26,0.45); }
+  70% { box-shadow: 0 0 0 16px rgba(217,83,26,0); }
+  100% { box-shadow: 0 0 0 0 rgba(217,83,26,0); }
+}
+.animate-pulse-ring { animation: pulse-ring 2.2s ease-out infinite; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.6s ease-out both; }
+
+/* ---------- About page "unlock the playbook" mini-game ---------- */
+.flip-card { perspective: 1200px; }
+.flip-card-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+.flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-card-back { transform: rotateY(180deg); }
+
+.progress-dot {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.game-glow {
+  box-shadow: 0 0 0 1px rgba(217,83,26,0.15), 0 20px 60px -20px rgba(217,83,26,0.45);
+}
